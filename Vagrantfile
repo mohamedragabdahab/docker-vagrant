@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
    config.vm.provider "virtualbox" do |vb|
        vb.memory = "10230"
-       vb.cpus = "1"
+       vb.cpus = "2"
    end
 
   #
