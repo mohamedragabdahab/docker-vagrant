@@ -2,11 +2,9 @@
 
 apt-get update
 
-apt-get install make
+apt-get install -y make
 
-apt-get install -y python-pip
-
-pip install awscli
+apt-get install -y awscli
 
 sysctl -w vm.max_map_count=262144
 
