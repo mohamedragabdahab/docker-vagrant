@@ -48,13 +48,17 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
     config.vm.synced_folder "../shop", "/data"
+    config.vm.synced_folder "~/.aws", "/home/vagrant/.aws"
+    config.vm.synced_folder "~/.kube", "/home/vagrant/.kube"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
-  #  config.vm.provider "virtualbox" do |vb|
-  #      vb.memory = "10230"
-  #  end
+   config.vm.provider "virtualbox" do |vb|
+       vb.memory = "10230"
+       vb.cpus = "1"
+   end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -62,15 +66,16 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", path: 'scripts/install.sh'
+   config.vm.provision "shell", path: 'scripts/install.sh'
 
   # require plugin https://github.com/leighmcculloch/vagrant-docker-compose
-    config.vagrant.plugins = ["vagrant-aws", "vagrant-docker-compose"]
+   config.vagrant.plugins = ["vagrant-aws", "vagrant-docker-compose"]
 
   # install docker and docker-compose
-    config.vm.provision :docker
-    config.vm.provision :docker_compose
+   config.vm.provision :docker
+   config.vm.provision :docker_compose
 
   # Set working directory to /data directly after vagrant ssh
-    config.ssh.extra_args = ["-t", "cd /data; bash --login"]
+   config.ssh.extra_args = ["-t", "cd /data; bash --login"]
+
 end
